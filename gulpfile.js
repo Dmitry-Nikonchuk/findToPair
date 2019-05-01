@@ -7,8 +7,8 @@ const uglify = require('gulp-uglify');
 const babel = require('gulp-babel');
 
 
-gulp.task('less', () => {
-    gulp.src('./src/less/**/*.less')
+gulp.task('less', function() {
+    return gulp.src('./src/less/**/*.less')
         .pipe(less())
         .pipe(autoprefixer({
             browsers: ['last 10 versions']
@@ -20,8 +20,8 @@ gulp.task('less', () => {
         .pipe(gulp.dest('./dist/css'));
 });
 
-gulp.task('js', () => {
-    gulp.src('./src/js/**/*.js')
+gulp.task('js', function() {
+    return gulp.src('./src/js/**/*.js')
         .pipe(babel({
             presets: ['@babel/env']
         }))
@@ -32,7 +32,9 @@ gulp.task('js', () => {
         .pipe(gulp.dest('./dist/js'))
 });
 
-gulp.task('watch-less', () => gulp.watch('./src/less/**/*.less', gulp.series('less')));
-gulp.task('watch-js', () => gulp.watch('./src/js/**/*.js', gulp.series('js')));
+gulp.task('watch', function() {
+    gulp.watch('./src/less/**/*.less', gulp.series('less'));
+    gulp.watch('./src/js/**/*.js', gulp.series('js'));
+});
 
-gulp.task('default', gulp.parallel('less', 'js', 'watch-less', 'watch-js'));
+gulp.task('default', gulp.parallel('watch'));

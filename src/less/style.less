@@ -1,0 +1,71 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    background-color: #f1dbb6;
+}
+h1 {
+    text-align: center;
+    font-family: Helvetica, sans-serif;
+    font-size: 50px;
+    padding-top: 50px;
+    color:#000;
+}
+#game-container {
+    width: 410px;
+    height: 410px;
+    border: 1px solid #a2661f;
+    background-color: #dc8239;
+    margin: 40px auto;
+    display: flex;
+    flex-flow: row wrap;
+    box-shadow: 0 0 30px rgba(0, 0, 0, .4);
+    .item {
+        width: 25%;
+        height: 25%;
+        border: 1px solid #a2661f;
+        position: relative;
+        perspective: 500px;
+        overflow: hidden;
+        cursor: pointer;
+        .front, .back {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            transition: all .5s ease-in;
+            backface-visibility: hidden;
+            background-color:rgba(255, 255, 255, .4);
+            img {
+                width: 100%;
+            }
+        }
+        .back {
+            background: url('../../img/background.jpg') 0 0 no-repeat;
+            background-size: cover;
+            transform: rotateY(-180deg);
+        }
+        &.checked {
+            .front {
+                transform: rotateY(0deg);
+            }
+            .back {
+                transform: rotateY(-180deg);
+            }
+        }
+        &.close {
+            .front {
+                transform: rotateY(180deg);
+            }
+            .back {
+                transform: rotateY(0deg);
+            }
+        }
+        &.correct {
+            opacity: 0;
+        }
+    }
+}
