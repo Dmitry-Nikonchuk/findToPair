@@ -5,6 +5,7 @@ const autoprefixer = require('gulp-autoprefixer');
 const rename = require('gulp-rename');
 const uglify = require('gulp-uglify');
 const babel = require('gulp-babel');
+const image = require('gulp-image');
 
 
 gulp.task('less', function() {
@@ -32,9 +33,17 @@ gulp.task('js', function() {
         .pipe(gulp.dest('./dist/js'))
 });
 
+gulp.task('imagemin', function() {
+    return gulp.src('./img/*')
+        .pipe(image())
+        .pipe(gulp.dest('./dist/img/'));
+});
+
+
 gulp.task('watch', function() {
     gulp.watch('./src/less/**/*.less', gulp.series('less'));
     gulp.watch('./src/js/**/*.js', gulp.series('js'));
+    gulp.watch('./img/*', gulp.series('imagemin'));
 });
 
 gulp.task('default', gulp.parallel('watch'));
